@@ -1,1 +1,13 @@
-echo "Hello World!"
+#! /bin/bash
+
+DIRECTORIO="./EPNro1"
+DIRECTORIO_ENTRADA="$DIRECTORIO/entrada"
+DIRECTORIO_SALIDA="$DIRECTORIO/salida"
+DIRECTORIO_PROCESADO="$DIRECTORIO/procesado"
+
+export FILENAME="datos-estudiantes"
+
+crear_entorno() {
+  mkdir -p $DIRECTORIO $DIRECTORIO_ENTRADA $DIRECTORIO_SALIDA $DIRECTORIO_PROCESADO
+  touch $DIRECTORIO_SALIDA/$FILENAME.txt
+}
