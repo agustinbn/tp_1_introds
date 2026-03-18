@@ -16,7 +16,15 @@ correr_proceso() {
 
 mostrar_notas_altas() {
 	if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
-		cat "$DIRECTORIO_SALIDA/$FILENAME.txt" | sort -k 5 -n -r | head -n 10
+		echo -e "\n"
+		echo "┌────────────────────────────────────────────┐"
+  	echo "│           DIEZ NOTAS MAS ALTAS             │"
+  	echo "└────────────────────────────────────────────┘"
+		echo " "
+		sort -k 5 -nr < "$DIRECTORIO_SALIDA/$FILENAME.txt" | head -n 10
+		echo " "
+		echo "└────────────────────────────────────────────┘"
+		echo -e "\n"
 	else
 		echo "El archivo $FILENAME.txt no existe en el directorio $DIRECTORIO_SALIDA"
 	fi
@@ -33,9 +41,8 @@ menu() {
   echo "│ 5 - Buscar alumno por padron        │"
   echo "│ 6 - Salir                           │"
   echo "└─────────────────────────────────────┘"
-  echo -n "Selecione una opcion: "
-  read x
-  case $x in
+  read -p "Selecione una opcion: " opcion
+  case $opcion in
     1) crear_entorno ;;
     2) correr_proceso ;;
 		4) mostrar_notas_altas ;;
