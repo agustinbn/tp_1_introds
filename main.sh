@@ -4,11 +4,13 @@ DIRECTORIO="./EPNro1"
 DIRECTORIO_ENTRADA="$DIRECTORIO/entrada"
 DIRECTORIO_SALIDA="$DIRECTORIO/salida"
 DIRECTORIO_PROCESADO="$DIRECTORIO/procesado"
+SALIDA=false
 
 export FILENAME="datos-estudiantes"
 
+
 crear_entorno() {
-  mkdir -p $DIRECTORIO_ENTRADA $DIRECTORIO_SALIDA $DIRECTORIO_PROCESADO
+  mkdir -p $DIRECTORIO $DIRECTORIO_ENTRADA $DIRECTORIO_SALIDA $DIRECTORIO_PROCESADO
 }
 
 menu() {
@@ -22,10 +24,11 @@ menu() {
   read x
   case $x in
     1) crear_entorno ;;
-    2) consolidar.sh ;;
-    3)  ;;
+    2) ./EPNro1/consolidar.sh & ;;
+    6)  $SALIDA=true;;
     *) echo "Opción no válida" ;;
   esac
 }
-
-crear_entorno
+until [ "$SALIDA" = "true" ]; do
+  menu
+done
