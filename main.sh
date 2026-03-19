@@ -1,6 +1,6 @@
 #! /bin/bash
 
-FILENAME="archivo"
+FILENAME="FILENAME"
 DIRECTORIO="./EPNro1"
 DIRECTORIO_ENTRADA="$DIRECTORIO/entrada"
 DIRECTORIO_SALIDA="$DIRECTORIO/salida"
@@ -14,12 +14,31 @@ correr_proceso() {
 	bash $DIRECTORIO/consolidar.sh &
 }
 
+mostrar_listado_alumnos() {
+  echo "Buscando: $FILENAME.txt"
+  if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
+    sort "$DIRECTORIO_SALIDA/$FILENAME.txt" 
+  else
+      echo "el archivo no existe"
+  fi
+}
+
 mostrar_notas_altas() {
 	if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
 		cat "$DIRECTORIO_SALIDA/$FILENAME.txt" | sort -k 5 -n -r | head -n 10
 	else
 		echo "El archivo $FILENAME.txt no existe en el directorio $DIRECTORIO_SALIDA"
 	fi
+}
+
+buscar_alumno_por_padron() {
+  echo -n "Ingrese el padron del alumno: "
+  read padron_ingresado
+  if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
+    grep "$padron_ingresado" "$DIRECTORIO_SALIDA/$FILENAME.txt"
+  else
+    echo "El archivo $FILENAME.txt no existe en el directorio $DIRECTORIO_SALIDA"
+  fi
 }
 
 menu() {
@@ -38,7 +57,9 @@ menu() {
   case $x in
     1) crear_entorno ;;
     2) correr_proceso ;;
+    3) mostrar_listado_alumnos ;;
 		4) mostrar_notas_altas ;;
+    5) buscar_alumno_por_padron ;;
     6) exit 0 ;;
     *) echo "Opción no válida" ;;
   esac
