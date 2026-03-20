@@ -11,9 +11,25 @@ crear_entorno() {
 }
 
 correr_proceso() {
-	bash $DIRECTORIO/consolidar.sh &
-}
 
+  if [ ! -d "$DIRECTORIO" ]; then
+    echo "Error: Primero debes crear el entorno (Opción 1)."
+    return
+  fi
+
+  if [ -f "./consolidar.sh" ]; then
+    
+    cp ./consolidar.sh "$DIRECTORIO/"
+    
+    chmod +x "$DIRECTORIO/consolidar.sh"
+    
+    bash "$DIRECTORIO/consolidar.sh" &
+    
+    echo " consolidar.sh copiado y ejecutado en segundo plano."
+  else
+    echo "Error: No se encontró el archivo ./consolidar.sh original."
+  fi
+}
 mostrar_listado_alumnos() {
   echo "Buscando: $FILENAME.txt"
   if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
