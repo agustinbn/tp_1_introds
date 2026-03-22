@@ -11,31 +11,25 @@ crear_entorno() {
 }
 
 correr_proceso() {
-
   if [ ! -d "$DIRECTORIO" ]; then
     echo "Error: Primero debes crear el entorno (Opción 1)."
     return
   fi
 
   if [ -f "./consolidar.sh" ]; then
-    
     cp ./consolidar.sh "$DIRECTORIO/"
-    
-    chmod +x "$DIRECTORIO/consolidar.sh"
-    
     bash "$DIRECTORIO/consolidar.sh" &
-    
     echo " consolidar.sh copiado y ejecutado en segundo plano."
   else
     echo "Error: No se encontró el archivo ./consolidar.sh original."
   fi
 }
+
 mostrar_listado_alumnos() {
-  echo "Buscando: $FILENAME.txt"
   if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
     sort "$DIRECTORIO_SALIDA/$FILENAME.txt" 
   else
-      echo "el archivo no existe"
+    echo "El archivo $FILENAME.txt no existe en el directorio $DIRECTORIO_SALIDA"
   fi
 }
 
@@ -56,8 +50,7 @@ mostrar_notas_altas() {
 }
 
 buscar_alumno_por_padron() {
-  echo -n "Ingrese el padron del alumno: "
-  read padron_ingresado
+  read -p "Ingrese el padron del alumno: " padron_ingresado
   if [ -f "$DIRECTORIO_SALIDA/$FILENAME.txt" ]; then
     grep "$padron_ingresado" "$DIRECTORIO_SALIDA/$FILENAME.txt"
   else
