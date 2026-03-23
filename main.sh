@@ -7,6 +7,14 @@ DIRECTORIO_ENTRADA="$DIRECTORIO/entrada"
 DIRECTORIO_SALIDA="$DIRECTORIO/salida"
 DIRECTORIO_PROCESADO="$DIRECTORIO/procesado"
 
+
+if [ "$1" == "-d" ]; then
+  pkill -f "$DIRECTORIO/consolidar.sh"
+  rm -rf "$DIRECTORIO"
+  echo "Directorio eliminado."
+  exit 1
+fi
+
 crear_entorno() {
   mkdir -p $DIRECTORIO_ENTRADA $DIRECTORIO_SALIDA $DIRECTORIO_PROCESADO
 }
