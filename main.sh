@@ -7,16 +7,16 @@ DIRECTORIO_ENTRADA="$DIRECTORIO/entrada"
 DIRECTORIO_SALIDA="$DIRECTORIO/salida"
 DIRECTORIO_PROCESADO="$DIRECTORIO/procesado"
 
-
 if [ "$1" == "-d" ]; then
   pkill -f "$DIRECTORIO/consolidar.sh"
   rm -rf "$DIRECTORIO"
-  echo "Directorio eliminado."
-  exit 1
+  echo "Entorno eliminado y procesos terminados."
+  exit 0
 fi
 
 crear_entorno() {
   mkdir -p $DIRECTORIO_ENTRADA $DIRECTORIO_SALIDA $DIRECTORIO_PROCESADO
+  echo "Entorno creado en $DIRECTORIO."
 }
 
 correr_proceso() {
@@ -28,7 +28,7 @@ correr_proceso() {
   if [ -f "./consolidar.sh" ]; then
     cp ./consolidar.sh "$DIRECTORIO/"
     bash "$DIRECTORIO/consolidar.sh" &
-    echo " consolidar.sh copiado y ejecutado en segundo plano."
+    echo "El script consolidar.sh fue copiado y ejecutado en segundo plano en el directorio $DIRECTORIO."
   else
     echo "Error: No se encontró el archivo ./consolidar.sh original."
   fi
